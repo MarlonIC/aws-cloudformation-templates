@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  "Creación de VPC básica"
+
+Parameters:
+  CIDR:
+    Type: String
+    Default: "10.10.0.0/22"
+    Description: "Bloque de enrutamiento entre dominios sin clases"
+
+Resources:
+  VpcCloudformation:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Ref: CIDR
+      EnableDnsSupport: true
+      EnableDnsHostnames: false
+      InstanceTenancy: "default"
+      Tags:
+        - Key: "Name"
+          Value: "VpcCloudFormation"
