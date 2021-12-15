@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  "Creación de VPC básica"
+
+Parameters:
+  VpcId:
+    Type: String
+    Default: "vpc-0350b8ee44ee92c8c"
+    Description: ""
+
+  CidrPublic1:
+    Type: String
+    Default: "10.10.1.0/24"
+    Description: "IPv4 CIDR block asignado a la subnet"
+
+  CidrPublic2:
+    Type: String
+    Default: "10.10.2.0/24"
+    Description: "IPv4 CIDR block asignado a la subnet"
+
+Resources:
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VpcId
+      CidrBlock:
+        Ref: CidrPublic1
+      Tags:
+      - Key: "Name"
+        Value: "Subnet 1"
+
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VpcId
+      CidrBlock:
+        Ref: CidrPublic2
+      Tags:
+        - Key: "Name"
+          Value: "Subnet 2"

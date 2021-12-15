@@ -8,6 +8,7 @@ Parameters:
     Default: "10.10.0.0/22"
     Description: "Bloque de enrutamiento entre dominios sin clases"
 
+
 Resources:
   VpcCloudformation:
     Type: AWS::EC2::VPC
