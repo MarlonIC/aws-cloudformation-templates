@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  "Creación un Internet Gateway con nombre MyIG y atacharlo a una VPC"
+
+Parameters:
+  VpcId:
+    Type: String
+    Default: "vpc-0350b8ee44ee92c8c"
+    Description: "VPC Id creado para atacharlo el internet gateway"
+
+
+Resources:
+  MyIG:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: "Name"
+          Value: "MyIG"
+
+  AtachInternetGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VpcId
+      InternetGatewayId:
+        Ref: MyIG

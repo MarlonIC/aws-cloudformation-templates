@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description:
-  "Creación de VPC básica"
+  "Creación de dos subredes asociadas a una VPC"
 
 Parameters:
   VpcId:
@@ -8,12 +8,12 @@ Parameters:
     Default: "vpc-0350b8ee44ee92c8c"
     Description: ""
 
-  CidrPublic1:
+  Cidr1:
     Type: String
     Default: "10.10.1.0/24"
     Description: "IPv4 CIDR block asignado a la subnet"
 
-  CidrPublic2:
+  Cidr2:
     Type: String
     Default: "10.10.2.0/24"
     Description: "IPv4 CIDR block asignado a la subnet"
@@ -25,7 +25,8 @@ Resources:
       VpcId:
         Ref: VpcId
       CidrBlock:
-        Ref: CidrPublic1
+        Ref: Cidr1
+      MapPublicIpOnLaunch: true
       Tags:
       - Key: "Name"
         Value: "Subnet 1"
@@ -36,7 +37,8 @@ Resources:
       VpcId:
         Ref: VpcId
       CidrBlock:
-        Ref: CidrPublic2
+        Ref: Cidr2
+      MapPublicIpOnLaunch: true
       Tags:
         - Key: "Name"
           Value: "Subnet 2"
