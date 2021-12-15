@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  "Crea un nuevo route table y lo asocia al VPC (cuando se crea una VPC, por defecto se crea un route table)"
+
+Parameters:
+  VpcId:
+    Type: String
+    Default: "vpc-0350b8ee44ee92c8c"
+    Description: "VPC Id existente"
+
+
+Resources:
+  MyRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VpcId
+      Tags:
+        - Key: "Name"
+          Value: "MyRouteTable"
