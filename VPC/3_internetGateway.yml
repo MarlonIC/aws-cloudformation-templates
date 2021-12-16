@@ -1,6 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description:
-  "Creación un Internet Gateway con nombre MyIG y atacharlo a una VPC"
+
+Description: >
+  Creación un Internet Gateway con nombre MyIG
+  y atacharlo a una VPC
 
 Parameters:
   VpcId:
@@ -17,7 +19,7 @@ Resources:
         - Key: "Name"
           Value: "MyIG"
 
-  AtachInternetGateway:
+  AttachInternetGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId:

@@ -25,6 +25,11 @@ Parameters:
     Default: "MyInternetGateway"
     Description: "Nombre del internet gateway a crear"
 
+  RouteTableName:
+    Type: String
+    Default: "MyRouteTable"
+    Description: "Nombre del route table a crear"
+
   CidrVpc:
     Type: String
     Default: "10.10.0.0/22"
@@ -88,10 +93,30 @@ Resources:
           Value:
             Ref: InternetGatewayName
 
-  AtachInternetGateway:
+  AttachInternetGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId:
         Ref: Vpc
       InternetGatewayId:
+        Ref: InternetGateway
+
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: Vpc
+      Tags:
+        - Key: "Name"
+          Value:
+            Ref: RouteTableName
+
+  Route:
+    Type: AWS::EC2::Route
+    DependsOn: AttachInternetGateway
+    Properties:
+      RouteTableId:
+        Ref: RouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId:
         Ref: InternetGateway
