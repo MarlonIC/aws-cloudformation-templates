@@ -10,7 +10,7 @@ Parameters:
 
 
 Resources:
-  VpcCloudformation:
+  MyVpc:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock:
@@ -20,4 +20,4 @@ Resources:
       InstanceTenancy: "default"
       Tags:
         - Key: "Name"
-          Value: "VpcCloudFormation"
+          Value: "MyVpc"

@@ -1,0 +1,97 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >
+  Creación de una VPC básica con dos subredes
+  e Internet Gateway atachado a la VPC
+
+Parameters:
+  VpcName:
+    Type: String
+    Default: "MyVpc"
+    Description: "Nombre de la VPC a crear"
+
+  Subred1Name:
+    Type: String
+    Default: "MySubnet1"
+    Description: "Nombre de la primera subred a crear"
+
+  Subred2Name:
+    Type: String
+    Default: "MySubnet2"
+    Description: "Nombre de la segunda subred a crear"
+
+  InternetGatewayName:
+    Type: String
+    Default: "MyInternetGateway"
+    Description: "Nombre del internet gateway a crear"
+
+  CidrVpc:
+    Type: String
+    Default: "10.10.0.0/22"
+    Description: "Bloque de enrutamiento entre dominios sin clases"
+
+  CidrSubnet1:
+    Type: String
+    Default: "10.10.1.0/24"
+    Description: "IPv4 CIDR block asignado a la subnet"
+
+  CidrSubnet2:
+    Type: String
+    Default: "10.10.2.0/24"
+    Description: "IPv4 CIDR block asignado a la subnet"
+
+Resources:
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Ref: CidrVpc
+      EnableDnsSupport: true
+      EnableDnsHostnames: false
+      InstanceTenancy: "default"
+      Tags:
+        - Key: "Name"
+          Value:
+            Ref: VpcName
+
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: Vpc
+      CidrBlock:
+        Ref: CidrSubnet1
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: "Name"
+          Value:
+            Ref: Subred1Name
+
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: Vpc
+      CidrBlock:
+        Ref: CidrSubnet2
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: "Name"
+          Value:
+            Ref: Subred2Name
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: "Name"
+          Value:
+            Ref: InternetGatewayName
+
+  AtachInternetGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: Vpc
+      InternetGatewayId:
+        Ref: InternetGateway
