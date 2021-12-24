@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Creación de un bucket con política retain, esto hace que
+  si se elimina el stack, este recurso no se elimina
+
+Parameters:
+  bucketName:
+    Type: String
+    Default: "marloningabuckettest"
+    Description: "Nombre del bucket a crear"
+
+Resources:
+  MyBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: "Retain"
+    Properties:
+      BucketName:
+        Ref: bucketName
