@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Creación de un bucket, el recurso de s3 se elimina luego de eliminar el stack,
+  el bucket no debería de contener objetos
+
+Parameters:
+  bucketName:
+    Type: String
+    Default: "marloningabuckettest"
+    Description: "Nombre del bucket a crear"
+
+Resources:
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Ref: bucketName
