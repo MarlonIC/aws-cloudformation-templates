@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  "Creación de una Instancia EC2 AMI - free tier"
+
+Parameters:
+  CIDR:
+    Type: String
+    Default: "10.10.0.0/22"
+    Description: "Bloque de enrutamiento entre dominios sin clases"
+
+Resources:
+  MyInstance:
+    Type: EC2::AWS::Instance
+    Properties:
+      ImageId: "ami-0ed9277fb7eb570c9"
+      KeyName: "ec2-cursos"
