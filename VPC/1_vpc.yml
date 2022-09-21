@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description:
-  "Creación de VPC básica"
+  "Creación de VPC básica con rango de IP's Version 4"
 
 Parameters:
   CIDR:
@@ -21,3 +21,44 @@ Resources:
       Tags:
         - Key: "Name"
           Value: "MyVpc"
+
+Outputs:
+  MyVpcVpcIdFirstForm:
+    Description: El ID del VPC
+    Value: !Ref MyVpc
+    Export:
+      Name: !Sub "${AWS::StackName}-VpcId1"
+  MyVpcVpcIdSecondForm:
+    Description: El ID del VPC
+    Value: !GetAtt "MyVpc.VpcId"
+    Export:
+      Name: !Sub "${AWS::StackName}-VpcId2"
+  MyVpcCidrBlock:
+    Description: Bloque de IP's del VPC
+    Value: !GetAtt MyVpc.CidrBlock
+    Export:
+      Name: !Sub "${AWS::StackName}-CidrBlock"
+  MyVpcCidrBlockAssociations:
+    Description: CidrBlockAssociations del VPC
+    Value:  !Join
+      - ","
+      - !GetAtt MyVpc.CidrBlockAssociations
+    Export:
+      Name: !Sub "${AWS::StackName}-CidrBlockAssociations"
+  MyVpcDefaultNetworkAcl:
+    Description: DefaultNetworkAcl del VPC
+    Value: !GetAtt MyVpc.DefaultNetworkAcl
+    Export:
+      Name: !Sub "${AWS::StackName}-DefaultNetworkAcl"
+  MyVpcDefaultSecurityGroup:
+    Description: DefaultSecurityGroup del VPC
+    Value: !GetAtt MyVpc.DefaultSecurityGroup
+    Export:
+      Name: !Sub "${AWS::StackName}-DefaultSecurityGroup"
+  # MyVpcIpv6CidrBlocks:
+  #   Description: DefaultSecurityGroup del VPC
+  #   Value: !Join
+  #     - ","
+  #     - !GetAtt MyVpc.Ipv6CidrBlocks
+  #   Export:
+  #     Name: !Sub "${AWS::StackName}-Ipv6CidrBlocks"
